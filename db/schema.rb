@@ -11,6 +11,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20150120185325) do
 
+  create_table "api_keys", force: :cascade do |t|
+    t.string   "user",       limit: 255
+    t.string   "token",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "component_testlogs", force: :cascade do |t|
+    t.integer "component_id", limit: 4, null: false
+    t.integer "test_id",      limit: 4, null: false
+  end
+
+  add_index "component_testlogs", ["component_id", "test_id"], name: "index_component_testlogs_on_component_id_and_test_id", using: :btree
+
+  create_table "components", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "components", ["name"], name: "index_components_on_name", unique: true, using: :btree
+
+  create_table "test_runs", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "url",        limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.integer  "test_run_id", limit: 4
+    t.binary   "data",        limit: 16777215
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "tests", ["test_run_id"], name: "index_tests_on_test_run_id", using: :btree
+
+  add_foreign_key "tests", "test_runs"
 end

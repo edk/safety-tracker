@@ -4,7 +4,7 @@ class TestRunTest < ActiveSupport::TestCase
   test "building the obj with associated models" do
     sample = JSON.parse(File.open("#{ActionController::TestCase.fixture_path}/sample1.json").read)
 
-    testrun = TestRun.build_run sample["name"], sample["url"], sample["examples"]
+    testrun = TestRun.build_run sample["name"], sample["url"], "some_branch", sample["examples"]
     testrun.save!
 
     assert_equal(testrun.name, sample["name"])

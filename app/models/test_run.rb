@@ -10,9 +10,9 @@ class TestRun < ActiveRecord::Base
     tests.map {|t| t.components.map {|c| c.name }  }.flatten.uniq.sort
   end
 
-  def self.build_run name, url, examples
+  def self.build_run name, url, branch, examples
     test_run = TestRun.new
-    test_run.name, test_run.url = name, url
+    test_run.name, test_run.url, test_run.branch = name, url, branch
 
     Array(examples).compact.map do |el|
       test_run.tests << Test.build_from_json(el)

@@ -13,7 +13,7 @@ class TestRunsController < ApplicationController
 
   def create
     tr_params = test_run_params
-    @test_run = TestRun.build_run tr_params[:name], tr_params[:url], params[:examples]
+    @test_run = TestRun.build_run tr_params[:name], tr_params[:url], tr_params[:branch], params[:examples]
 
     if @test_run.save
       respond_to do |format|
@@ -31,6 +31,6 @@ class TestRunsController < ApplicationController
   protected
   def test_run_params
     # nested data in examples doesn't play nicely with strong params
-    params.permit(:name, :url, :tags, :examples)
+    params.permit(:name, :url, :branch, :tags, :examples)
   end
 end

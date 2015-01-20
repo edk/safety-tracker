@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+key = ApiKey.create_api_token
+puts "seeded api key: #{key.encoded}"
+
+
+
